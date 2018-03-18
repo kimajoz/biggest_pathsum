@@ -51,9 +51,34 @@ function max_sum_matrice_rec(tab, p, lenhei)
     	}
 	p.y--;
     }
-    //console.log('tabres : ');
-    //JSON.stringify(tabres);
-    return (score);
+    console.log('tabres : ');
+    return (tabres);
+}
+
+function find_path(tab, tabres, p, lenhei)
+{
+    var s = tabres[0][0];
+
+    console.log(' => ' + tab[0][0] + ' ');
+    while (s > 0 && (p.x < (lenhei.l -1) || p.y < (lenhei.h -1)))
+    { 
+        console.log('pos.y:' + p.y + ', x:' + p.x);
+        console.log('s:' + s);
+	if (tabres[p.y][p.x + 1] == s)
+	{
+        	console.log(' + ');
+    		console.log(tab[p.y][p.x + 1]);
+		p.x++;
+	}
+	else if (tabres[p.y + 1][p.x] == s)
+	{
+        	console.log(' + ');
+    		console.log(tab[p.y + 1][p.x]);
+		p.y++;
+	}
+	s--;
+    }
+    console.log(' = ' + tabres[0][0] + ' !');
 }
 
 function main()
@@ -67,9 +92,10 @@ function main()
  
   var lenhei = {h : tab.length, l: tab[0].length};
   var pos = {x : lenhei.h, y: lenhei.l};
-  //max_sum_matrice(tab, pos);
-  var resulat = max_sum_matrice_rec(tab, pos, lenhei);
-  //console.log('resulat : ' + resulat);
+  var resultat = max_sum_matrice_rec(tab, pos, lenhei);
+  console.log('resultat : ' + resultat);
+  pos = {x : 0, y: 0};
+  find_path(tab, resultat, pos, lenhei);
 }
 
 main();
