@@ -4,16 +4,27 @@ function s(tab, px, py, lenhei, tabres, bol)
 		tabres[py][px] = tab[py][px] + tabres[py][px + 1];
 	else if (py < (lenhei.h-1) && bol)	// Bas
 		tabres[py][px] = tab[py][px] + tabres[py + 1][px];
-	else
+	else  // Start
     		tabres[py][px] = tab[py][px];
 	return(tabres[py][px]);
+}
+
+function create_array(len)
+{
+    var tabres = new Array();
+    for(var i=0; i < len; i++)
+    {
+	var array = new Array();
+	tabres.push(array);
+    }
+    return(tabres);
 }
 
 function max_sum_matrice_rec(tab, p, lenhei)
 {
     var score = 0;
-	
-    var tabres = Array(Array(), Array(), Array());
+    var tabres = create_array(lenhei.l);
+
     while (p.y > 0)
     {
 	p.x = lenhei.l; 
@@ -58,12 +69,23 @@ function main()
   [1, 2, 5],
   [3, 4, 5]
 	];
+
+  var tab2 = [
+  [1, 2, 3, 5, 9, 13],
+  [1, 2, 5, 7, 9, 8],
+  [19, 23, 18, 7, 3, 1],
+  [19, 2, 28, 7, 6, 8],
+  [1, 2, 12, 7, 9, 8],
+  [3, 4, 5, 1, 4, 3]
+	];
  
-  var lenhei = {h : tab.length, l: tab[0].length};
+  var chtab = tab2;
+  var lenhei = {h : chtab.length, l: chtab[0].length};
   var pos = {x : lenhei.h, y: lenhei.l};
-  var resultat = max_sum_matrice_rec(tab, pos, lenhei);
+  var resultat = max_sum_matrice_rec(chtab, pos, lenhei);
+  console.log(resultat);
   pos = {x : 0, y: 0};
-  console.log(find_path(tab, resultat, pos, lenhei));
+  console.log(find_path(chtab, resultat, pos, lenhei));
 }
 
 main();
